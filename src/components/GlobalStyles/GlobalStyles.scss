@@ -1,50 +1,54 @@
+@import '../../core/reset';
+@import '../../core/variable';
 @import '../../core/base';
-:root {
-  --primary-color: #ff3b5c;
-  --full-background: #252836;
-  --primary-background: rgba(255, 255, 255, 0.12);
-  --fixed-padding: 0 26px;
-  --color-hover: rgb(255, 59, 92);
-  --color-secondary-text: #ffffff80;
-  --background-hover: rgba(255, 255, 255, 0.1);
-  --transition-color: color 0.3s ease;
-}
-img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-a {
-  text-decoration: none;
-  color: inherit;
-}
-h1,
-h2,
-h3,
-h4,
-p,
-span {
-  color: white;
-}
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-li {
-  list-style: none;
-}
-
-/* Áp dụng font cho toàn bộ body */
-body {
-  font-family: 'IBM Plex Sans', TikTokFont, Arial, Tahoma, PingFangSC,
-    sans-serif;
-  font-size: 1.6rem;
-  line-height: 1.5;
-  background-color: var(--full-background);
+@import '../../core/mixin';
+@import '../../core/font';
+@import '../../core/flex';
+@import '../../layouts/btn';
+.header {
+  &_wrapper {
+    position: fixed; // Giữ header cố định bên trái
+    top: 0;
+    left: 0;
+    width: 105px; // Chiều rộng của header
+    height: 100vh; // Chiều cao bằng toàn bộ màn hình
+    background-color: #000000; // Màu nền
+    display: flex;
+    flex-direction: column; // Sắp xếp các mục theo chiều dọc
+    align-items: center; // Căn giữa nội dung theo chiều ngang
+    padding: var(--pad-pri);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); // Đổ bóng nhẹ
+    .header_inner {
+      display: flex;
+      flex-direction: column; // Xếp dọc các icon
+      justify-content: space-around;
+      height: 100vh; // Đặt chiều cao container, có thể tùy chỉnh
+      .header_logo {
+        text-align: center;
+      }
+      .header_icon {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.5s; // Hiệu ứng chuyển động
+        padding: 1rem;
+        .icon {
+          width: 30px;
+          height: 30px;
+          filter: brightness(0) saturate(100%) invert(74%) sepia(40%)
+            saturate(570%) hue-rotate(321deg) brightness(97%) contrast(92%);
+        }
+        &:hover {
+          padding: 1rem;
+          background: var(--primary-color);
+          border-radius: 8px;
+          .icon {
+            filter: brightness(0) saturate(100%) invert(85%) sepia(100%)
+              saturate(0%) hue-rotate(60deg) brightness(102%) contrast(104%);
+          }
+        }
+      }
+    }
+  }
 }

@@ -4,7 +4,7 @@ const DefaultLayout = ({ children }) => {
   return (
     <div className="App">
       <Header />
-      <main>{children}</main>
+      <main className="main">{children}</main>
     </div>
   );
 };

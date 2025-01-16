@@ -1,6 +1,9 @@
 .row {
   --cg: 2.4rem;
   --rg: 2.4rem;
+  display: flex;
+  flex-wrap: wrap; // Cho phép các cột tự xuống hàng
+
   margin: 0 calc(var(--cg) / 2 * -1) calc(var(--rg) * -1);
   &:not(.swiper) {
     display: flex;
@@ -77,6 +80,4 @@
 .swiper.row {
   --rg: 0;
   margin: 0 calc(var(--cg) / 2 * -1);
-  .swiper-wrapper {
-  }
 }

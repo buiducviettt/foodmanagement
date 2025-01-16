@@ -1,5 +1,19 @@
+@import './_font.scss';
 * {
   box-sizing: border-box;
+}
+:root {
+  --primary-color: #ea7c69;
+  --full-background: #252836;
+  --primary-background: rgba(255, 255, 255, 0.12);
+  --fixed-gap: 105px;
+  --color-hover: rgb(255, 59, 92);
+  --color-secondary-text: #ffffff80;
+  --background-hover: rgba(255, 255, 255, 0.1);
+  --transition-color: color 0.3s ease;
+  --pad-pri: 2.4rem;
+  --pad-sec: 2.4rem 0;
+  --font-pri: 'Barlow', serif;
 }
 
 html {
@@ -11,14 +25,26 @@ html {
   }
 }
 
+h1,
+h2,
+h3,
+h4,
+p,
+span {
+  color: white;
+}
+h1 {
+  @include fz-28;
+  font-weight: 600;
+}
 body {
+  background-color: var(--full-background);
   font-family: var(--font-pri);
-  font-size: 16px;
+  @include fz-16;
   line-height: 1.55;
   font-weight: var(--fw);
   color: var(--c-txt);
   overflow: hidden auto;
-
   @media screen and (min-width: 2000px) {
     font-size: 17px;
   }
@@ -52,15 +78,12 @@ textarea {
   appearance: none;
   font-family: var(--font-pri) !important;
 }
-// input:-webkit-autofill {
-//   background: #fff !important;
-// }
-
-.main {
-  min-height: 68vh;
-  padding-top: var(--sz-hd);
+.sec-gap {
+  padding: var(--pad-sec);
 }
-
+.main {
+  margin-left: calc(var(--fixed-gap)); // Tránh header
+}
 .container {
   width: 100%;
   max-width: 123rem;

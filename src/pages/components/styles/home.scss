@@ -1,0 +1,33 @@
+.home_layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 60% 1fr;
+
+  .home_menu {
+    padding: var(--pad-pri);
+    .home_header {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+    }
+  }
+  .home_order {
+    width: 35%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background: #1f1d2b;
+    z-index: 10;
+    &_inner {
+      padding: var(--pad-pri);
+    }
+  }
+  .home_tabs {
+    .home_prod {
+      &_list {
+        padding-top: calc(4 * var(--pad-pri));
+      }
+    }
+  }
+}
