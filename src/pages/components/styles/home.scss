@@ -22,8 +22,38 @@
     &_inner {
       padding: var(--pad-pri);
     }
+    &_table {
+      &_inner {
+        .table_heading_wrapper {
+          th {
+            margin-bottom: var(--pad-pri);
+            font-weight: 600;
+            border-bottom: var(--stroke);
+          }
+        }
+        .table_content {
+          padding-top: var(--pad-pri);
+        }
+
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        &_wrapper {
+          border-radius: 8px;
+          width: fit-content;
+          padding: 1.4rem 2rem;
+          background-color: var(--form-bg);
+          border: var(--stroke);
+        }
+      }
+    }
   }
   .home_tabs {
+    &_title {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
     .home_prod {
       &_list {
         padding-top: calc(4 * var(--pad-pri));

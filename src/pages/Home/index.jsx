@@ -9,10 +9,23 @@ import '../components/styles/home.scss';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import Images from '../../assets/image/Images';
-import ProductItem from '../../components/ProductList/ProductItem';
+import DropDown from '../../components/Dropdown';
 
 const Home = () => {
+  const options = [
+    {
+      value: 'dinein',
+      label: 'Dine In',
+    },
+    {
+      value: 'togo',
+      label: 'To Go',
+    },
+    {
+      value: 'delivery',
+      label: 'Delivery',
+    },
+  ];
   const [value, setValue] = useState('one');
 
   const handleChange = (event, newValue) => {
@@ -21,7 +34,7 @@ const Home = () => {
   const [date, setDate] = useState('');
   useEffect(() => {
     const now = new Date();
-    const formattedDate = format(now, 'EEEE, d MMM yyyy '); // Format ngày
+    const formattedDate = format(now, 'EEEE, d MMM yyyy'); // Format ngày
     setDate(formattedDate);
   }, []);
   return (
@@ -30,12 +43,12 @@ const Home = () => {
         <div className="home_menu">
           <div className="home_header">
             <div className="home_header_info">
-              <h1>Đức Việt Restaurant</h1>
+              <h1>Đức Việt F&B</h1>
               <p>{date}</p>
             </div>
             <div className="home_header_search">
               <TextField
-                placeholder="Search for food, coffe, etc.."
+                placeholder="Search for food, coffee, etc.."
                 variant="outlined"
                 size="small"
                 InputProps={{
@@ -88,6 +101,10 @@ const Home = () => {
                 <Tab value="five" label="Appetizer" />
                 <Tab value="six" label="Dessert" />
               </Tabs>
+              <div className="sec-gap home_tabs_title ">
+                <h1>Choose Dishes</h1>
+                <DropDown label="Type" options={options} />
+              </div>
 
               <div>
                 <Box sx={{ marginTop: '2.4rem', color: '#fff' }}>
@@ -123,6 +140,45 @@ const Home = () => {
         <div className="home_order">
           <div className="home_order_inner">
             <h1>Orders #34562</h1>
+            <div className="order_methods sec-gap">
+              <button className=" btn btn--pri order_button dine_in">
+                Dine In
+              </button>
+              <button className="btn order_button to_go">To Go</button>
+              <button className=" btn order_button delivery">Delivery</button>
+            </div>
+            <div className="sec-gap home_order_table">
+              <table className="home_order_table_inner">
+                <thead className="table_heading_wrapper">
+                  <tr>
+                    <th className="table_headings" style={{ color: 'white' }}>
+                      Item
+                    </th>
+                    <th className="table_headings" style={{ color: 'white' }}>
+                      Qty
+                    </th>
+                    <th className="table_headings" style={{ color: 'white' }}>
+                      Price
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style={{ color: 'white' }}>Spicy seasoned sea...</td>
+                    <div className="home_order_table_inner_wrapper  ">
+                      <td
+                        className="home_order_table_inner_wrapper_price "
+                        style={{ color: 'white' }}
+                      >
+                        2
+                      </td>
+                    </div>
+
+                    <td style={{ color: 'white' }}>$5.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

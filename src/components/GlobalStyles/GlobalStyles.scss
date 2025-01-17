@@ -5,6 +5,20 @@
 @import '../../core/font';
 @import '../../core/flex';
 @import '../../layouts/btn';
+.order_methods {
+  @include flex-gap;
+  .order_button {
+    background: transparent;
+    border: 0.5px solid #393c49;
+    &:hover {
+      background-color: var(--primary-color);
+    }
+  }
+}
+.btn {
+  border-radius: 8px;
+}
+
 .header {
   &_wrapper {
     position: fixed; // Giữ header cố định bên trái
