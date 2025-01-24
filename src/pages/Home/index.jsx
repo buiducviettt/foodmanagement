@@ -10,8 +10,19 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import DropDown from '../../components/Dropdown';
+import { useCart } from '../../context/CartContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
+  const { cartItems, removeFromCart, totalPrice } = useCart();
+  const discount = 0.5;
+
+  let subTotal = Number(totalPrice) - discount;
+  if (subTotal < 0) {
+    subTotal = 0;
+  }
+
   const options = [
     {
       value: 'dinein',
@@ -163,21 +174,74 @@ const Home = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td style={{ color: 'white' }}>Spicy seasoned sea...</td>
-                    <div className="home_order_table_inner_wrapper  ">
-                      <td
-                        className="home_order_table_inner_wrapper_price "
-                        style={{ color: 'white' }}
-                      >
-                        2
-                      </td>
-                    </div>
-
-                    <td style={{ color: 'white' }}>$5.00</td>
-                  </tr>
+                  {cartItems.length === 0 ? (
+                    <p>Hiện không có sản phẩm này</p>
+                  ) : (
+                    cartItems.map((item) => (
+                      <tr key={item.id}>
+                        <td
+                          style={{ color: 'white' }}
+                          className="prod_item_info"
+                        >
+                          <img src={item.image} alt="" className="prod_img" />
+                          {item.name}
+                        </td>
+                        <input
+                          placeholder="Order Note..."
+                          type="text"
+                          className="comment_order"
+                          style={{
+                            width: '30rem',
+                            fontSize: '1.4rem',
+                            height: '5rem',
+                          }}
+                        />
+                        <td
+                          className="home_order_table_inner_wrapper_price"
+                          style={{ color: 'white' }}
+                        >
+                          {item.quantity}
+                        </td>
+                        <td style={{ color: 'white' }}>
+                          {item.price}
+                          <div className="remove_item icon">
+                            <FontAwesomeIcon
+                              icon={faTrash}
+                              onClick={() => removeFromCart(item.id)}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
+            </div>
+            <div
+              className="sec-gap home_order_total"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '2rem',
+              }}
+            >
+              <div
+                className="home_order_discount"
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+              >
+                <p>Discount</p>
+                <p>${discount}</p>
+              </div>
+              <div
+                className="home_order_discount"
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+              >
+                <p>Sub total</p>
+                <p>${subTotal.toFixed(2)}</p>
+              </div>
+            </div>
+            <div style={{ width: '100%' }} className="btn --pri order_button">
+              Continue to Payment
             </div>
           </div>
         </div>

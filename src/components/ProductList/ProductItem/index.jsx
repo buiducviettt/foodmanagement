@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import '../../ProductList/product.scss';
+
 const ProductItem = ({ image, name, price, number }) => {
   return (
     <div className="product_item_wrapper">
@@ -17,7 +18,7 @@ const ProductItem = ({ image, name, price, number }) => {
             >
               {name}
             </p>
-            <p className="product_price">{price} </p>
+            <p className="product_price">${price} </p>
             <p className="product_number" style={{ color: '#ABBBC2' }}>
               {number} Bowls available
             </p>

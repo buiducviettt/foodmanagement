@@ -16,14 +16,37 @@
     position: fixed;
     top: 0;
     right: 0;
-    height: 100vh;
+    min-height: 100vh;
+    overflow-y: auto;
     background: #1f1d2b;
     z-index: 10;
     &_inner {
       padding: var(--pad-pri);
+      .prod_item_info {
+        display: flex;
+        align-items: center;
+        .prod_img {
+          width: 50px; /* Điều chỉnh kích thước ảnh nếu cần */
+          height: 50px;
+          margin-right: 10px;
+        }
+      }
+      .home_order_table_inner_wrapper_price {
+        text-align: center;
+      }
     }
     &_table {
+      height: 60rem;
+      overflow-y: auto;
       &_inner {
+        .comment_order {
+          background-color: var(--full-background);
+          border-style: none;
+          color: white;
+        }
+        td {
+          padding: 1rem 0;
+        }
         .table_heading_wrapper {
           th {
             margin-bottom: var(--pad-pri);

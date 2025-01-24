@@ -39,4 +39,12 @@
   .col {
     margin-bottom: calc(4 * var(--pad-pri));
   }
+  .card-back {
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+  }
+  .btn_addcart {
+    background-color: var(--primary-color);
+  }
 }
