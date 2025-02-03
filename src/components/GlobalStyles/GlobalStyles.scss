@@ -19,6 +19,26 @@
   border-radius: 8px;
 }
 
+.cta_btn {
+  background: transparent !important;
+  border: 1px solid var(--primary-color);
+  transition: all 0.5s;
+  p {
+    color: var(--primary-color);
+  }
+  &:hover {
+    background-color: var(--primary-color) !important;
+    p {
+      color: white;
+    }
+  }
+}
+.ReactModal__Overlay--after-open {
+  position: fixed;
+  z-index: 1000 !important;
+  background-color: rgba(39, 38, 39, 0.8) !important;
+}
+
 .header {
   &_wrapper {
     position: fixed; // Giữ header cố định bên trái

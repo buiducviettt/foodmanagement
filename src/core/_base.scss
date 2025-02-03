@@ -16,6 +16,7 @@
   --font-pri: 'Barlow', serif;
   --form-bg: #2d303e;
   --stroke: 0.5px solid #393c49;
+  --secondary-color: #9288e0;
 }
 
 html {
@@ -37,6 +38,15 @@ span {
 }
 h1 {
   @include fz-28;
+  font-weight: 600;
+}
+h2 {
+  @include fz-24;
+  font-weight: 600;
+}
+label {
+  @include fz-14;
+  color: white;
   font-weight: 600;
 }
 body {

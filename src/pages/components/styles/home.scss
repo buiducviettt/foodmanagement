@@ -11,6 +11,7 @@
       flex-direction: row;
     }
   }
+
   .home_order {
     width: 35%;
     position: fixed;
@@ -80,6 +81,76 @@
     .home_prod {
       &_list {
         padding-top: calc(4 * var(--pad-pri));
+      }
+    }
+  }
+  .home_order_payment {
+    .home_order_payment {
+      &_inner {
+        .order_cta_group {
+          margin-top: 27rem;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.6rem;
+          .cta_btn {
+            width: 100%;
+          }
+        }
+        &_form {
+          .home_order_payment_form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+
+            .form-control,
+            select {
+              &::placeholder {
+                color: #abbbc2;
+              }
+              color: white;
+              background-color: var(--full-background);
+              font-size: 1.6rem;
+            }
+          }
+        }
+        .payment_method {
+          display: flex;
+          flex-direction: column;
+          gap: 1.6rem;
+          &_inner {
+            .method_item {
+              p {
+                color: #abbbc2;
+              }
+              padding: 1rem var(--pad-pri);
+              border-radius: 8px;
+              border: var(--stroke);
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              .method_img {
+                width: 24px; /* Điều chỉnh kích thước ảnh nếu cần */
+                height: 24px;
+                filter: brightness(0) saturate(100%) invert(82%) sepia(4%)
+                  saturate(875%) hue-rotate(153deg) brightness(93%)
+                  contrast(83%);
+              }
+              cursor: pointer;
+              &:focus {
+                background-color: #252836;
+                border: 1px solid white;
+                p {
+                  color: white;
+                }
+                .method_img {
+                  filter: brightness(0) saturate(100%) invert(100%) sepia(0%)
+                    saturate(7500%) hue-rotate(179deg) brightness(100%)
+                    contrast(100%);
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
