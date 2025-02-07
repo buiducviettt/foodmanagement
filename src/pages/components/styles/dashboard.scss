@@ -2,15 +2,36 @@
   &_inner {
     .containerPage {
       display: flex;
+      flex-wrap: nowrap;
+
       .colPage-7 {
+        flex: 6;
         width: 60vw;
       }
       .colPage-3 {
+        flex: 3;
         width: 40vw;
       }
     }
-    &_right {
+    &_right,
+    &_left {
       padding: var(--pad-pri);
+    }
+    &_left {
+      .order_list {
+        background: #1f1d2b;
+        border-radius: 8px;
+        &_inner {
+          padding: var(--pad-pri);
+          .order_list_header {
+            &_inner {
+              display: flex;
+              justify-content: space-between;
+              text-align: center;
+            }
+          }
+        }
+      }
     }
   }
   .box_item {
@@ -86,6 +107,38 @@
         .filter_icon {
           filter: brightness(0) saturate(100%) invert(100%) sepia(0%)
             saturate(7500%) hue-rotate(324deg) brightness(104%) contrast(105%);
+        }
+      }
+      .order_report_table {
+        &_inner {
+          width: 100%;
+          overflow-x: auto; // Đảm bảo không bị tràn màn hình
+          table {
+            border-spacing: 0 var(--pad-pri);
+            .status {
+              border-radius: 30px;
+              display: flex;
+              text-align: center;
+              justify-content: center;
+              padding: 4px 40px;
+              width: 100px;
+            }
+            .complete {
+              background-color: rgb(107, 266, 190, 24%);
+              color: #50d1aa !important;
+            }
+            .pending {
+              background-color: rgb(255, 181, 114, 20%);
+              color: #ffb572 !important;
+            }
+            .preparing {
+              background-color: rgb(146, 144, 254, 20%);
+              color: #9290fe !important;
+            }
+            width: 100%;
+            border-collapse: separate;
+            overflow: hidden;
+          }
         }
       }
     }

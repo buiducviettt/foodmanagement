@@ -4,29 +4,75 @@ import BoxItem from './components/box';
 import Images from '../../assets/image/Images';
 import '../components/styles/dashboard.scss';
 import { useState, useEffect } from 'react';
+import DropDown from '../../components/Dropdown';
 const Dashboard = () => {
   const [date, setDate] = useState('');
+  const [selectedOption, setSelectedOption] = useState('');
+
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+  const options = [
+    { value: 'today', label: 'Today' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+  ];
   const tableData = [
     {
       id: 1,
       customer: 'Alice',
-      menu: 'Pizza',
+      menu: 'Beef dumpling in hot and sour soup',
       total: ' $125',
       status: ' Complete',
     },
     {
       id: 2,
       customer: 'Bob',
-      menu: 'Burger',
+      menu: 'Salted Pasta with mushroom sauce',
       total: ' $1255',
       status: ' Pending',
     },
     {
       id: 3,
       customer: 'Charlie',
-      menu: 'Pasta',
+      menu: 'Spicy seasoned seafood noodles ',
       total: ' $1225',
       status: ' Complete',
+    },
+    {
+      id: 4,
+      customer: 'CharliePuth',
+      menu: 'Spicy seasoned seafood noodles ',
+      total: ' $12251',
+      status: ' Preparing',
+    },
+    {
+      id: 5,
+      customer: 'CharliePuth',
+      menu: 'Spicy seasoned seafood noodles ',
+      total: ' $12251',
+      status: ' Preparing',
+    },
+    {
+      id: 6,
+      customer: 'CharliePuth',
+      menu: 'Spicy seasoned seafood noodles ',
+      total: ' $12251',
+      status: ' Complete',
+    },
+    {
+      id: 7,
+      customer: 'CharliePuth',
+      menu: 'Spicy seasoned seafood noodles ',
+      total: ' $12251',
+      status: ' Complete',
+    },
+    {
+      id: 8,
+      customer: 'CharliePuth',
+      menu: 'Spicy seasoned seafood noodles ',
+      total: ' $12251',
+      status: ' Pending',
     },
   ];
   useEffect(() => {
@@ -107,12 +153,23 @@ const Dashboard = () => {
                               <tr>
                                 <th>Customer</th>
                                 <th>Menu</th>
+                                <th>Total Payment</th>
+                                <th>Status</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>Customer</td>
-                              </tr>
+                              {tableData.map((data) => (
+                                <tr key={data.id}>
+                                  <td>{data.customer}</td>
+                                  <td>{data.menu}</td>
+                                  <td>{data.total}</td>
+                                  <td
+                                    className={`status ${data.status.toLowerCase()}`}
+                                  >
+                                    {data.status}
+                                  </td>
+                                </tr>
+                              ))}
                             </tbody>
                           </table>
                         </div>
@@ -123,7 +180,24 @@ const Dashboard = () => {
               </div>
               <div className="colPage colPage-3">
                 {/* LEFT_CONTENT */}
-                <div className="dashboard_layout_inner_left"></div>
+                <div className="dashboard_layout_inner_left">
+                  <div className="order_list">
+                    <div className="order_list_inner">
+                      <div className="order_list_header">
+                        <div className="order_list_header_inner">
+                          <h2>Most Ordered</h2>
+                          <div className="order_list_dropdown">
+                            <DropDown
+                              options={options}
+                              value={selectedOption}
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
