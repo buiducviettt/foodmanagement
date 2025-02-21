@@ -13,11 +13,16 @@
         width: 40vw;
       }
     }
+    &_left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--pad-pri);
+      .order_figure {
+      }
+    }
     &_right,
     &_left {
       padding: var(--pad-pri);
-    }
-    &_left {
       .order_list {
         background: #1f1d2b;
         border-radius: 8px;

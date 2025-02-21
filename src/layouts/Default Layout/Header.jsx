@@ -36,7 +36,7 @@ const Header = () => {
             </Link>
           </div>
           <div className="header_icon header_setting">
-            <Link to="/">
+            <Link to="/setting">
               <img className="icon" src={Images.setting} alt="setting" />
             </Link>
           </div>

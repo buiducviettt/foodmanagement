@@ -87,7 +87,7 @@ const Home = () => {
           <div className="home_menu">
             <div className="home_header">
               <div className="home_header_info">
-                <h1>Đức Việt F&B</h1>
+                <h1>Ducky F&B</h1>
                 <p>{date}</p>
               </div>
               <div className="home_header_search">

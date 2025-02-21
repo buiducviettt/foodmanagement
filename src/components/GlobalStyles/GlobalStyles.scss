@@ -18,7 +18,19 @@
 .btn {
   border-radius: 8px;
 }
-
+.sub_text {
+  color: #abbbc2;
+  font-size: 14px;
+}
+.prod_item_info {
+  display: flex;
+  align-items: center;
+}
+.prod_img {
+  width: 50px; /* Điều chỉnh kích thước ảnh nếu cần */
+  height: 50px;
+  margin-right: 10px;
+}
 .cta_btn {
   background: transparent !important;
   border: 1px solid var(--primary-color);

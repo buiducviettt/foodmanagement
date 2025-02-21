@@ -23,15 +23,7 @@
     z-index: 10;
     &_inner {
       padding: var(--pad-pri);
-      .prod_item_info {
-        display: flex;
-        align-items: center;
-        .prod_img {
-          width: 50px; /* Điều chỉnh kích thước ảnh nếu cần */
-          height: 50px;
-          margin-right: 10px;
-        }
-      }
+
       .home_order_table_inner_wrapper_price {
         text-align: center;
       }

@@ -17,7 +17,11 @@ import option from './Food POS Dark - Tablet Device (Community)/Icon/Line/Option
 import food1 from './food/img1.png';
 import food2 from './food/img2.png';
 import food3 from './food/img3.png';
+import heart from './Food POS Dark - Tablet Device (Community)/Icon/Line/Appereance.svg';
+import restaurant from './Food POS Dark - Tablet Device (Community)/Icon/Line/Restaurant.svg';
 const Images = {
+  restaurant,
+  heart,
   option,
   order,
   arrowup,

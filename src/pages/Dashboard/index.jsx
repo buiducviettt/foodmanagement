@@ -5,13 +5,14 @@ import Images from '../../assets/image/Images';
 import '../components/styles/dashboard.scss';
 import { useState, useEffect } from 'react';
 import DropDown from '../../components/Dropdown';
+import CustomDonutChart from './components/piechart';
 const Dashboard = () => {
   const [date, setDate] = useState('');
-  const [selectedOption, setSelectedOption] = useState('');
-
+  const [selectedOption, setSelectedOption] = useState('today');
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
+
   const options = [
     { value: 'today', label: 'Today' },
     { value: 'option2', label: 'Option 2' },
@@ -106,7 +107,7 @@ const Dashboard = () => {
                         </div>
                         <div className="col col-3">
                           <BoxItem
-                            percentage="-32.40"
+                            percentage="-0.40"
                             icon1={Images.coin}
                             number="10,243.00"
                             title="Total Revenue"
@@ -122,7 +123,7 @@ const Dashboard = () => {
                         </div>
                         <div className="col col-3">
                           <BoxItem
-                            percentage="2.40"
+                            percentage="-2.40"
                             icon1={Images.coin}
                             number="1,234"
                             title="Total Customer"
@@ -195,6 +196,89 @@ const Dashboard = () => {
                           </div>
                         </div>
                       </div>
+                      <div className="order_list_inner_items sec-gap  ">
+                        <div className="inner  ">
+                          <div
+                            className="item_order prod_item_info"
+                            id="order_1"
+                          >
+                            <div className="item_img">
+                              <img
+                                src={Images.food1}
+                                alt=""
+                                className="prod_img"
+                              />
+                            </div>
+                            <div className="prod_item_title">
+                              <p>Spicy seasoned seafood noodles</p>
+                              <p className="sub_text">200 dishes ordered</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="order_list_inner_items sec-gap  ">
+                        <div className="inner  ">
+                          <div
+                            className="item_order prod_item_info"
+                            id="order_1"
+                          >
+                            <div className="item_img">
+                              <img
+                                src={Images.food1}
+                                alt=""
+                                className="prod_img"
+                              />
+                            </div>
+                            <div className="prod_item_title">
+                              <p>Spicy seasoned seafood noodles</p>
+                              <p className="sub_text">200 dishes ordered</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="order_list_inner_items sec-gap  ">
+                        <div className="inner  ">
+                          <div
+                            className="item_order prod_item_info"
+                            id="order_1"
+                          >
+                            <div className="item_img">
+                              <img
+                                src={Images.food1}
+                                alt=""
+                                className="prod_img"
+                              />
+                            </div>
+                            <div className="prod_item_title">
+                              <p>Spicy seasoned seafood noodles</p>
+                              <p className="sub_text">200 dishes ordered</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        className="btn --pri cta_btn"
+                        style={{ width: '100%' }}
+                      >
+                        View All
+                      </div>
+                    </div>
+                  </div>
+                  <div className="order_list order_figure  ">
+                    <div className="order_list_inner">
+                      <div className="order_list_header">
+                        <div className="order_list_header_inner">
+                          <h2>Most Type of Order</h2>
+                          <div className="order_list_dropdown">
+                            <DropDown
+                              options={options}
+                              value={selectedOption}
+                              onChange={handleChange}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <CustomDonutChart />
                     </div>
                   </div>
                 </div>
