@@ -16,7 +16,7 @@ const Header = () => {
             </Link>
           </div>
           <div className="header_icon header_discount">
-            <Link to="/">
+            <Link to="/discount">
               <img className="icon" src={Images.discount} alt="home" />
             </Link>
           </div>

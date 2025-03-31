@@ -1,13 +1,13 @@
 import DefaultLayout from '../../layouts/Default Layout';
-import { format } from 'date-fns';
+
 import BoxItem from './components/box';
 import Images from '../../assets/image/Images';
 import '../components/styles/dashboard.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import DropDown from '../../components/Dropdown';
 import CustomDonutChart from './components/piechart';
+import PageTitle from '../../components/TitleHeading';
 const Dashboard = () => {
-  const [date, setDate] = useState('');
   const [selectedOption, setSelectedOption] = useState('today');
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
@@ -76,11 +76,7 @@ const Dashboard = () => {
       status: ' Pending',
     },
   ];
-  useEffect(() => {
-    const now = new Date();
-    const formattedDate = format(now, 'EEEE, d MMM yyyy'); // Format ngày
-    setDate(formattedDate);
-  }, []);
+
   return (
     <DefaultLayout>
       <div className="dashboard_layout">
@@ -91,8 +87,7 @@ const Dashboard = () => {
                 {/* RIGHT_CONTENT */}
                 <div className="dashboard_layout_inner_right">
                   <div className="dashboard_title">
-                    <h1>Dashboard</h1>
-                    <p>{date}</p>
+                    <PageTitle title="Dashboard" />
                   </div>
                   <div className="sec-gap">
                     <div className="summary_box">

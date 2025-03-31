@@ -7,11 +7,31 @@ const Setting = () => {
       id: 1,
       icon: Images.heart,
       title: 'Appereance',
+      desc: 'Dark and Light mode, Font size',
     },
     {
       id: 2,
       icon: Images.restaurant,
       title: 'Restaurant',
+      desc: 'Dark and Light mode, Font size 2',
+    },
+    {
+      id: 3,
+      icon: Images.restaurant,
+      title: 'Restaurant',
+      desc: 'Dark and Light mode, Font size 2',
+    },
+    {
+      id: 4,
+      icon: Images.restaurant,
+      title: 'Restaurant',
+      desc: 'Dark and Light mode, Font size 2',
+    },
+    {
+      id: 5,
+      icon: Images.restaurant,
+      title: 'Restaurant',
+      desc: 'Dark and Light mode, Font size 2',
     },
   ];
   return (
@@ -25,25 +45,14 @@ const Setting = () => {
                 {settingOptions.map((option) => (
                   <li key={option.id} className="setting_option">
                     <div className="item setting_option_details">
-                      <img src={option.icon} alt="" />
+                      <img src={option.icon} alt="" />{' '}
+                      <div className="item_title">
+                        <p>{option.title}</p>
+                        <span className="sub_text">{option.desc}</span>
+                      </div>
                     </div>
                   </li>
                 ))}
-                <li className=" settting_option">
-                  <div className="item setting_option_details">
-                    <img src={Images.heart} alt="" />
-                    <div className="item_title">
-                      <p>Appereance</p>
-                      <span className="sub_text">
-                        Dark and Light mode, Font size
-                      </span>
-                    </div>
-                  </div>
-                </li>
-                <li className=" settting_option"></li>
-                <li className="item settting_option"></li>
-                <li className="item settting_option"></li>
-                <li className="item settting_option"></li>
               </ul>
             </div>
           </div>

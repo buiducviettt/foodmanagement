@@ -122,12 +122,12 @@ const ProductList = () => {
                     <p>{product.backcontent}</p>
                   </div>
                   <div className="product_cart_item">
-                    <button
-                      className="btn btn_addcart"
+                    <div
+                      className="btnn --pri btnn_addcart"
                       onClick={(e) => handleAddToCart(e, product)}
                     >
                       Order now
-                    </button>
+                    </div>
                   </div>
                 </div>
               </ReactCardFlip>

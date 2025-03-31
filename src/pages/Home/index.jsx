@@ -190,13 +190,11 @@ const Home = () => {
                 <div>
                   <h1>Orders #34562</h1>
                   <div className="order_methods sec-gap">
-                    <button className=" btn btn--pri order_button dine_in">
+                    <div className=" btnn btnn--pri order_div dine_in">
                       Dine In
-                    </button>
-                    <button className="btn order_button to_go">To Go</button>
-                    <button className=" btn order_button delivery">
-                      Delivery
-                    </button>
+                    </div>
+                    <div className="btnn order_div to_go">To Go</div>
+                    <div className=" btnn order_div delivery">Delivery</div>
                   </div>
                   <div className="sec-gap home_order_table">
                     <table className="home_order_table_inner">
@@ -285,8 +283,12 @@ const Home = () => {
                         justifyContent: 'space-between',
                       }}
                     >
-                      <p>Discount</p>
-                      <p>${discount}</p>
+                      <input
+                        type="text"
+                        placeholder="Enter your discount"
+                        className="discount_input"
+                      />
+                      <div className="btnn btnn--pri">Áp dụng</div>
                     </div>
                     <div
                       className="home_order_discount"
@@ -301,7 +303,7 @@ const Home = () => {
                   </div>
                   <div
                     style={{ width: '100%' }}
-                    className="btn --pri order_button"
+                    className="btnn --pri order_div"
                     onClick={handleNextStep}
                   >
                     Continue to Payment
@@ -455,13 +457,13 @@ const Home = () => {
                       </Form>
                       <div className="cta_group order_cta_group">
                         <div
-                          className="btn --pri cta_btn cancel_btn"
+                          className="btnn --pri cta_btnn cancel_btnn"
                           onClick={handlePrevStep}
                         >
                           <p className="shining_text">Cancel</p>
                         </div>
                         <div
-                          className="btn --pri cta_btn confirm_btn"
+                          className="btnn --pri cta_btnn confirm_btnn"
                           onClick={handleOpenPopup}
                         >
                           <p className="shining_text">Confirm Payment</p>
