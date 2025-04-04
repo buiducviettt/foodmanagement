@@ -8,6 +8,8 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [dailyRevenue, setDailyRevenue] = useState(0);
   useEffect(() => {
     const calculateTotalPrice = () => {
       const total = cartItems.reduce(
@@ -47,10 +49,48 @@ export const CartProvider = ({ children }) => {
 
   // Hàm kiểm tra số lượng sản phẩm trong giỏ
   const getCartCount = () => cartItems.length;
+  // Kiểm tra và reset daily revenue mỗi ngày
+  useEffect(() => {
+    const today = new Date().toDateString();
+    console.log(today);
+    const lastReset = localStorage.getItem('lastReset');
+    if (lastReset !== today) {
+      setDailyRevenue(0);
+      localStorage.setItem('dailyRevenue', 0);
+      localStorage.setItem('lastReset', today);
+    } else {
+      setDailyRevenue(parseFloat(localStorage.getItem('dailyRevenue')) || 0);
+    }
 
+    // Kiểm tra và lấy totalRevenue từ localStorage
+    const storedTotalRevenue = parseFloat(localStorage.getItem('totalRevenue'));
+    setTotalRevenue(isNaN(storedTotalRevenue) ? 0 : storedTotalRevenue);
+  }, []);
+
+  // Hàm thêm doanh thu khi thanh toán
+  const addToRevenue = () => {
+    const newDailyRevenue = dailyRevenue + parseFloat(totalPrice);
+    const newTotalRevenue = totalRevenue + parseFloat(totalPrice);
+
+    setDailyRevenue(newDailyRevenue);
+    setTotalRevenue(newTotalRevenue);
+
+    // Lưu vào localStorage để giữ dữ liệu sau khi tải lại trang
+    localStorage.setItem('dailyRevenue', newDailyRevenue);
+    localStorage.setItem('totalRevenue', newTotalRevenue); // FIX: Đảm bảo lưu đúng totalRevenue
+  };
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, getCartCount, totalPrice }}
+      value={{
+        cartItems,
+        addToCart,
+        addToRevenue,
+        removeFromCart,
+        dailyRevenue,
+        totalRevenue,
+        getCartCount,
+        totalPrice,
+      }}
     >
       {children}
     </CartContext.Provider>

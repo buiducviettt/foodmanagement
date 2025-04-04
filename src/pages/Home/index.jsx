@@ -1,30 +1,36 @@
 import DefaultLayout from '../../layouts/Default Layout';
 import { format } from 'date-fns';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
 import ProductList from '../../components/ProductList';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import '../components/styles/home.scss';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import DropDown from '../../components/Dropdown';
 import { useCart } from '../../context/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Images from '../../assets/image/Images';
 import Form from 'react-bootstrap/Form';
+import { DiscountContext } from '../../context/DiscountContext';
+import { OrderContext } from '../../context/OrderContext';
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
 const Home = () => {
+  const [method, setMethod] = useState('');
+  const { discountValue, applyDiscount } = useContext(DiscountContext);
+  const { createNewOrder } = useContext(OrderContext);
+  const { cartItems, removeFromCart, totalPrice, addToRevenue } = useCart();
+  const [inputCode, setInputCode] = useState('');
   const [formData, setFormData] = useState({
     cardholderName: '',
     cardNumber: '',
     expirationDate: '',
     cvv: '',
+    orderType: 'Dine In',
     tableNo: '144',
+    total: '',
   });
+
   const handleChangeForm = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -40,8 +46,7 @@ const Home = () => {
     setOpenPopup(false);
   };
   const [currentStep, setCurrentStep] = useState(1);
-  const { cartItems, removeFromCart, totalPrice } = useCart();
-  const discount = 0.5;
+
   const handleNextStep = () => {
     return setCurrentStep((prev) => prev + 1);
   };
@@ -49,29 +54,48 @@ const Home = () => {
     return setCurrentStep((prev) => prev - 1);
   };
 
-  let subTotal = Number(totalPrice) - discount;
-  if (subTotal < 0) {
-    subTotal = 0;
-  }
-
-  const options = [
+  //logic tinh toan
+  let discountPercentage = `${discountValue}%`;
+  let subtotal = totalPrice - totalPrice * (discountValue / 100);
+  const paymentMethods = [
     {
-      value: 'dinein',
-      label: 'Dine In',
+      id: 'paypal',
+      name: 'Paypal',
+      img: Images.paypal, // Không cần template string `${}`
     },
     {
-      value: 'togo',
-      label: 'To Go',
+      id: 'credit_card',
+      name: 'Credit Card',
+      img: Images.card,
     },
     {
-      value: 'delivery',
-      label: 'Delivery',
+      id: 'cash',
+      name: 'Cash',
+      img: Images.wallet,
     },
   ];
+  const handleMethod = (id) => {
+    setMethod(id);
+    console.log('Selected method:', id);
+  };
+  //
   const [value, setValue] = useState('one');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+  const handleSubmit = () => {
+    console.log('FormData:', formData);
+
+    // tạo đơn hàng
+    const newOrder = createNewOrder(
+      cartItems,
+      formData.cardholderName,
+      subtotal,
+    );
+    console.log('newOrder:', JSON.stringify(newOrder, null, 2));
+    alert(`Thanh toán thành công! Tổng tiền: ${subtotal}`);
+    addToRevenue();
   };
   const [date, setDate] = useState('');
   useEffect(() => {
@@ -90,42 +114,7 @@ const Home = () => {
                 <h1>Ducky F&B</h1>
                 <p>{date}</p>
               </div>
-              <div className="home_header_search">
-                <TextField
-                  placeholder="Search for food, coffee, etc.."
-                  variant="outlined"
-                  size="small"
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <SearchIcon
-                          style={{ color: '#fff', fontSize: '2rem' }}
-                        />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    width: '100%',
-                    maxWidth: '400px',
-                    '& .MuiOutlinedInput-root': {
-                      background: '#2D303E',
-                      fontSize: '1.5rem',
-                      color: 'white',
-                      padding: '1rem',
-                      borderRadius: '8px',
-                      '& fieldset': {
-                        borderColor: '#393C49',
-                      },
-                      '&:hover fieldset': {
-                        borderColor: '#ea7c69',
-                      },
-                      '&.Mui-focused fieldset': {
-                        borderColor: '#ea7c69',
-                      },
-                    },
-                  }}
-                />
-              </div>
+              {/* Search ở đây */}
             </div>
             <div className="home_tabs sec-gap">
               <Box>
@@ -147,10 +136,6 @@ const Home = () => {
                   <Tab value="five" label="Appetizer" />
                   <Tab value="six" label="Dessert" />
                 </Tabs>
-                <div className="sec-gap home_tabs_title ">
-                  <h1>Choose Dishes</h1>
-                  <DropDown label="Type" options={options} />
-                </div>
 
                 <div>
                   <Box sx={{ marginTop: '2.4rem', color: '#fff' }}>
@@ -188,14 +173,7 @@ const Home = () => {
             <div className="home_order_inner">
               {currentStep === 1 && (
                 <div>
-                  <h1>Orders #34562</h1>
-                  <div className="order_methods sec-gap">
-                    <div className=" btnn btnn--pri order_div dine_in">
-                      Dine In
-                    </div>
-                    <div className="btnn order_div to_go">To Go</div>
-                    <div className=" btnn order_div delivery">Delivery</div>
-                  </div>
+                  <h1>Orders</h1>
                   <div className="sec-gap home_order_table">
                     <table className="home_order_table_inner">
                       <thead className="table_heading_wrapper">
@@ -235,7 +213,7 @@ const Home = () => {
                                   alt=""
                                   className="prod_img"
                                 />
-                                {item.name}
+                                {item.title}
                               </td>
                               <input
                                 placeholder="Order Note..."
@@ -284,11 +262,31 @@ const Home = () => {
                       }}
                     >
                       <input
+                        value={inputCode}
+                        onChange={(e) => setInputCode(e.target.value)}
                         type="text"
                         placeholder="Enter your discount"
                         className="discount_input"
                       />
-                      <div className="btnn btnn--pri">Áp dụng</div>
+                      <div
+                        className="btnn btnn--pri"
+                        onClick={() => applyDiscount(inputCode)}
+                      >
+                        Áp dụng
+                      </div>
+                    </div>
+                    {/* <div>
+                      {discountCode && <p>Đã áp dụng mã: {discountCode}</p>}
+                    </div> */}
+                    <div
+                      className="home_order_discount"
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <p>Total</p>
+                      <p>${totalPrice}</p>
                     </div>
                     <div
                       className="home_order_discount"
@@ -297,8 +295,19 @@ const Home = () => {
                         justifyContent: 'space-between',
                       }}
                     >
+                      <p>Discount</p>
+                      <p>{discountPercentage}</p>
+                    </div>
+
+                    <div
+                      className="home_order_discount"
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                      }}
+                    >
                       <p>Sub total</p>
-                      <p>${subTotal.toFixed(2)}</p>
+                      <p>${subtotal.toFixed(2)}</p>
                     </div>
                   </div>
                   <div
@@ -321,50 +330,25 @@ const Home = () => {
                       </div>
                       <div className="payment_method_inner">
                         <div className="row">
-                          <div className="col col-4">
-                            <div
-                              className="method_item"
-                              tabIndex="0"
-                              id="credit_card"
-                            >
-                              <img
-                                src={Images.card}
-                                alt=""
-                                className="method_img"
-                              />
-                              <div className="method_name">
-                                <p>Credit Card</p>
+                          {paymentMethods.map((item, index) => (
+                            <div key={index} className="col col-4">
+                              <div
+                                onClick={() => handleMethod(item.id)}
+                                className="method_item"
+                                tabIndex="0"
+                                id={item.id}
+                              >
+                                <img
+                                  src={item.img}
+                                  alt=""
+                                  className="method_img"
+                                />
+                                <div className="method_name">
+                                  <p>{item.name}</p>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="col col-4">
-                            <div
-                              className="method_item"
-                              tabIndex="0"
-                              id="paypal"
-                            >
-                              <img
-                                src={Images.paypal}
-                                alt=""
-                                className="method_img"
-                              />
-                              <div className="method_name">
-                                <p>Paypal</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="col col-4">
-                            <div className="method_item" tabIndex="0" id="cash">
-                              <img
-                                src={Images.wallet}
-                                alt=""
-                                className="method_img"
-                              />
-                              <div className="method_name">
-                                <p>Cash</p>
-                              </div>
-                            </div>
-                          </div>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -432,10 +416,14 @@ const Home = () => {
                             <div className="col col-6">
                               <Form.Label>Order Type</Form.Label>
                               <div className="form_input">
-                                <Form.Select type="text" placeholder="Dine In">
-                                  <option>Dine In</option>
-                                  <option>To Go</option>
-                                  <option>Delivery</option>
+                                <Form.Select
+                                  type="text"
+                                  name="orderType"
+                                  onChange={handleChangeForm}
+                                >
+                                  <option value="Dine in">Dine In</option>
+                                  <option value="To Go">To Go</option>
+                                  <option value="Delivery">Delivery</option>
                                 </Form.Select>
                               </div>
                             </div>
@@ -466,7 +454,7 @@ const Home = () => {
                           className="btnn --pri cta_btnn confirm_btnn"
                           onClick={handleOpenPopup}
                         >
-                          <p className="shining_text">Confirm Payment</p>
+                          <p className="shining_text">Confirm Order</p>
                         </div>
                       </div>
                     </div>
@@ -496,10 +484,19 @@ const Home = () => {
             }}
           >
             <div className="order_form_thankyou">
-              <h1>THANK YOU FOR YOUR ORDER</h1>
+              <h1>CONFIRM FOR YOUR ORDER</h1>
             </div>
             <div className="order_form_info" style={{ textAlign: 'center' }}>
               <h2>Here is your information</h2>
+              <p>
+                <strong>Order price:</strong> {subtotal}
+              </p>
+              <p>
+                <strong>OrderType:</strong> {formData.orderType}
+              </p>
+              <p>
+                <strong>Method:</strong> {method}
+              </p>
               <p>
                 <strong>Cardholder Name:</strong> {formData.cardholderName}
               </p>
@@ -515,6 +512,9 @@ const Home = () => {
               <p>
                 <strong>Table No.:</strong> {formData.tableNo}
               </p>
+            </div>
+            <div className="btnn btn--pri" onClick={handleSubmit}>
+              Payment
             </div>
           </Modal>
         </div>

@@ -30,7 +30,7 @@ const BoxItem = ({ icon1, percentage, number, title }) => {
           </div>
         </div>
         <div className="box_item_number">
-          <h1 className="box_item_number_text">${number}</h1>
+          <h1 className="box_item_number_text">{number}</h1>
         </div>
         <div className="box_item_name">
           <p>{title}</p>

@@ -29,7 +29,7 @@
       }
     }
     &_table {
-      height: 60rem;
+      height: 50rem;
       overflow-y: auto;
       &_inner {
         .comment_order {
@@ -144,6 +144,13 @@
           }
         }
       }
+    }
+  }
+  .home_order_total {
+    .discount_input {
+      background: transparent;
+      border-right: none;
+      color: white;
     }
   }
 }

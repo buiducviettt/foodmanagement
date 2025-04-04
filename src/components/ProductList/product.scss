@@ -3,6 +3,8 @@
 
   .product_image {
     img {
+      width: 100px;
+      aspect-ratio: 1 / 1; /* Tỉ lệ khung hình 1:1 */
       position: absolute;
       top: 0;
       left: 50%;

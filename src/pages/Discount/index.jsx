@@ -1,23 +1,11 @@
 import DefaultLayout from '../../layouts/Default Layout';
 import '../components/styles/discount.scss';
 import PageTitle from '../../components/TitleHeading';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Images from '../../assets/image/Images';
+import { DiscountContext } from '../../context/DiscountContext';
 const Discount = () => {
-  const discount_item = [
-    {
-      id: 1,
-      name: 'vietdepchai',
-      description: 'This is discount 1',
-      discount: 10,
-    },
-    {
-      id: 2,
-      name: 'vietdepchaivl',
-      description: 'This is discount 2',
-      discount: 20,
-    },
-  ];
+  const { discountList } = useContext(DiscountContext);
   const [copiedID, setCopiedID] = useState(null);
   const handleCopy = (text, id) => {
     navigator.clipboard
@@ -35,7 +23,7 @@ const Discount = () => {
           <PageTitle title="Discount" />
           <div className="sec-gap discount_coupons">
             <ul className="discount_items">
-              {discount_item.map((item, index) => (
+              {discountList.map((item, index) => (
                 <li key={index} className="discount_item">
                   <div className="discount_img">
                     <img src={Images.voucher} alt="voucher" />
