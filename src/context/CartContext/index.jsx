@@ -41,7 +41,6 @@ export const CartProvider = ({ children }) => {
       }
     });
   };
-
   // Hàm xóa sản phẩm khỏi giỏ hàng
   const removeFromCart = (itemId) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));

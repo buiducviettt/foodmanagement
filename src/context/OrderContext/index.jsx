@@ -16,9 +16,15 @@ export const OrderProvider = ({ children }) => {
     return statuses[Math.floor(Math.random() * statuses.length)];
   };
   // thêm đơn hàng mới
-  const createNewOrder = async (cartItems, cardholderName, totalPrice) => {
+  const createNewOrder = async (
+    cartItems,
+    cardholderName,
+    orderType,
+    totalPrice,
+  ) => {
     const newOrder = {
       id: Date.now(),
+      type: orderType,
       customer: cardholderName,
       items: cartItems,
       total: totalPrice,
@@ -83,11 +89,34 @@ export const OrderProvider = ({ children }) => {
 
     return ranking;
   };
+  // tính toán ordertype
+  const getOrderType = (orders) => {
+    const allowedTypes = ['Dine In', 'To Go', 'Delivery'];
+    const filteredOrders = orders.filter((order) =>
+      allowedTypes.includes(order.type),
+    );
+    const totalOrders = filteredOrders.length;
+    const typeCounts = filteredOrders.reduce((acc, order) => {
+      const type = order.type;
+      acc[type] = (acc[type] || 0) + 1;
+      return acc;
+    }, {});
+    const result = Object.entries(typeCounts).map(([type, count]) => {
+      const percentage = ((count / totalOrders) * 100).toFixed(1) + '%';
+      console.log(
+        `📊 Type: ${type}, Count: ${count}, Percentage: ${percentage}`,
+      );
+      return { type, count, percentage };
+    });
+
+    return result;
+  };
 
   return (
     <OrderContext.Provider
       value={{
         orders,
+        getOrderType,
         createNewOrder,
         getTotalOrders,
         clearOrders,

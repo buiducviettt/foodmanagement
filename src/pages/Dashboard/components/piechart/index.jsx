@@ -1,12 +1,19 @@
 import { PieChart, Pie, Cell, Legend } from 'recharts';
-
-const data = [
-  { name: 'Dine In', value: 10, color: '#FF7CA3' },
-  { name: 'To Go', value: 20, color: '#FFB572' },
-  { name: 'Delivery', value: 30, color: '#65B0F6' },
-];
+import { OrderContext } from '../../../../context/OrderContext';
+import { useContext } from 'react';
 
 const CustomDonutChart = () => {
+  const { getOrderType, orders } = useContext(OrderContext);
+  const colorMap = {
+    'Dine In': '#FF7CA3',
+    'To Go': '#FFB572',
+    Delivery: '#65B0F6',
+  };
+  const data = getOrderType(orders).map((item) => ({
+    name: item.type,
+    value: item.count,
+    color: colorMap[item.type] || '#999999', // fallback màu xám nếu không khớp
+  }));
   return (
     <div>
       <PieChart width={500} height={300}>

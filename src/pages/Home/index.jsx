@@ -92,18 +92,15 @@ const Home = () => {
       const newOrder = await createNewOrder(
         cartItems,
         formData.cardholderName,
+        formData.orderType,
         subtotal,
       );
       console.log('newOrder:', JSON.stringify(newOrder, null, 2));
-
       alert(`Thanh toán thành công! Tổng tiền: ${subtotal}`);
-
       // ✅ Đợi cộng doanh thu xong (nếu hàm là async)
       await addToRevenue();
-
       // ✅ Reset giỏ hàng nếu muốn (tránh reload toàn trang)
       // clearCart(); // nếu có
-
       // ✅ Reload nhẹ nhàng (có thể thay bằng chuyển route hoặc reset form)
       window.location.reload();
     } catch (error) {
@@ -151,7 +148,6 @@ const Home = () => {
                   <Tab value="appetizer" label="Appetizer" />
                   <Tab value="dessert" label="Dessert" />
                 </Tabs>
-
                 <div>
                   <Box sx={{ marginTop: '2.4rem', color: '#fff' }}>
                     <div className="home_prod">
@@ -164,7 +160,6 @@ const Home = () => {
               </Box>
             </div>
           </div>
-
           <div className="home_order">
             <div className="home_order_inner">
               {currentStep === 1 && (
