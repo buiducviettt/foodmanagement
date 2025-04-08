@@ -10,9 +10,16 @@ import PageTitle from '../../components/TitleHeading';
 import { getProducts } from '../../api';
 import { OrderContext } from '../../context/OrderContext';
 const Dashboard = () => {
-  const { getTotalOrders, orders, clearOrders, countUniqueCustomers } =
-    useContext(OrderContext);
+  const {
+    getTotalOrders,
+    orders,
+    clearOrders,
+    countUniqueCustomers,
+    getTopDishes,
+  } = useContext(OrderContext);
   console.log('Orders:', orders);
+  // eslint-disable-next-line no-unused-vars
+  const [topdishes, setTopDishes] = useState([]);
   const { dailyRevenue, totalRevenue } = useCart();
   const [selectedOption, setSelectedOption] = useState('today');
   const handleChange = (event) => {
@@ -26,6 +33,12 @@ const Dashboard = () => {
     };
     fetchProducts();
   }, []);
+  // get top dishes
+  useEffect(() => {
+    const topDishes = getTopDishes(orders); // Lấy top dishes từ orders
+    setTopDishes(topDishes); // Cập nhật state topDishes
+  }, [orders, getTopDishes]); // Đặt orders và getTopDishes là dependency
+
   const options = [
     { value: 'today', label: 'Today' },
     { value: 'option2', label: 'Option 2' },
@@ -142,32 +155,40 @@ const Dashboard = () => {
                         <div className="order_list_header_inner">
                           <h2>Most Ordered</h2>
                           <div className="order_list_dropdown">
-                            <DropDown
+                            {/* <DropDown
                               options={options}
                               value={selectedOption}
                               onChange={handleChange}
-                            />
+                            /> */}
                           </div>
                         </div>
                       </div>
                       <div className="order_list_inner_items sec-gap  ">
                         <div className="inner  ">
-                          <div
-                            className="item_order prod_item_info"
-                            id="order_1"
-                          >
-                            <div className="item_img">
-                              <img
-                                src={Images.food1}
-                                alt=""
-                                className="prod_img"
-                              />
-                            </div>
-                            <div className="prod_item_title">
-                              <p>Spicy seasoned seafood noodles</p>
-                              <p className="sub_text">200 dishes ordered</p>
-                            </div>
-                          </div>
+                          {topdishes && topdishes.length > 0 ? (
+                            topdishes.map((dish) => (
+                              <div
+                                key={dish.rank}
+                                className="item_order prod_item_info"
+                              >
+                                <div className="item_img">
+                                  <img
+                                    src={dish.image}
+                                    alt={dish.name}
+                                    className="prod_img"
+                                  />
+                                </div>
+                                <div className="prod_item_title">
+                                  <p>{dish.name}</p>
+                                  <p className="sub_text">
+                                    {dish.count} dishes ordered
+                                  </p>
+                                </div>
+                              </div>
+                            ))
+                          ) : (
+                            <p>No dishes available</p>
+                          )}
                         </div>
                       </div>
                       <div
@@ -184,11 +205,11 @@ const Dashboard = () => {
                         <div className="order_list_header_inner">
                           <h2>Most Type of Order</h2>
                           <div className="order_list_dropdown">
-                            <DropDown
+                            {/* <DropDown
                               options={options}
                               value={selectedOption}
                               onChange={handleChange}
-                            />
+                            /> */}
                           </div>
                         </div>
                       </div>

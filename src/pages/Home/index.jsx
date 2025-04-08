@@ -79,23 +79,37 @@ const Home = () => {
     console.log('Selected method:', id);
   };
   //
-  const [value, setValue] = useState('one');
+  const [value, setValue] = useState('all');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const handleSubmit = () => {
-    console.log('FormData:', formData);
+  const handleSubmit = async () => {
+    try {
+      console.log('FormData:', formData);
 
-    // tạo đơn hàng
-    const newOrder = createNewOrder(
-      cartItems,
-      formData.cardholderName,
-      subtotal,
-    );
-    console.log('newOrder:', JSON.stringify(newOrder, null, 2));
-    alert(`Thanh toán thành công! Tổng tiền: ${subtotal}`);
-    addToRevenue();
+      // ✅ Tạo đơn hàng (nếu createNewOrder không phải async, thì không cần await)
+      const newOrder = await createNewOrder(
+        cartItems,
+        formData.cardholderName,
+        subtotal,
+      );
+      console.log('newOrder:', JSON.stringify(newOrder, null, 2));
+
+      alert(`Thanh toán thành công! Tổng tiền: ${subtotal}`);
+
+      // ✅ Đợi cộng doanh thu xong (nếu hàm là async)
+      await addToRevenue();
+
+      // ✅ Reset giỏ hàng nếu muốn (tránh reload toàn trang)
+      // clearCart(); // nếu có
+
+      // ✅ Reload nhẹ nhàng (có thể thay bằng chuyển route hoặc reset form)
+      window.location.reload();
+    } catch (error) {
+      console.error('Error creating order:', error);
+      alert('Có lỗi xảy ra trong quá trình thanh toán. Vui lòng thử lại!');
+    }
   };
   const [date, setDate] = useState('');
   useEffect(() => {
@@ -129,40 +143,22 @@ const Home = () => {
                     '& .Mui-selected': { color: '#EA7C69 !important' },
                   }}
                 >
-                  <Tab value="one" label="Hot Dishes" />
-                  <Tab value="two" label="Cold Dishes" />
-                  <Tab value="three" label="Soup" />
-                  <Tab value="four" label="Grill" />
-                  <Tab value="five" label="Appetizer" />
-                  <Tab value="six" label="Dessert" />
+                  <Tab value="all" label="All" />
+                  <Tab value="hot-dishes" label="Hot Dishes" />
+                  <Tab value="cold-dishes" label="Cold Dishes" />
+                  <Tab value="soup" label="Soup" />
+                  <Tab value="grill" label="Grill" />
+                  <Tab value="appetizer" label="Appetizer" />
+                  <Tab value="dessert" label="Dessert" />
                 </Tabs>
 
                 <div>
                   <Box sx={{ marginTop: '2.4rem', color: '#fff' }}>
-                    {value === 'one' && (
-                      <div className="home_prod">
-                        <div className="home_prod_list">
-                          <ProductList />
-                        </div>
+                    <div className="home_prod">
+                      <div className="home_prod_list">
+                        <ProductList value={value} />
                       </div>
-                    )}
-                    {value === 'two' && (
-                      <div className="home_prod">
-                        <div className="home_prod_list">
-                          <ProductList />
-                        </div>
-                      </div>
-                    )}
-                    {value === 'three' && (
-                      <div>
-                        <p>Hiện tại chưa có món này!</p>
-                      </div>
-                    )}
-                    {value === 'four' && (
-                      <div>
-                        <p>Hiện tại chưa đến thời gian bán !</p>
-                      </div>
-                    )}
+                    </div>
                   </Box>
                 </div>
               </Box>
@@ -232,7 +228,7 @@ const Home = () => {
                                 {item.quantity}
                               </td>
                               <td style={{ color: 'white' }}>
-                                {item.price}
+                                ${item.price}
                                 <div className="remove_item icon">
                                   <FontAwesomeIcon
                                     icon={faTrash}
