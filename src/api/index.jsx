@@ -6,6 +6,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
 // gọi list sản phẩm
 export const getProducts = async () => {
   try {

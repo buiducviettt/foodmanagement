@@ -1,3 +1,4 @@
+@import '../../core/font';
 .product_item {
   position: relative; /* Cần có position: relative cho phần tử cha */
 
@@ -12,7 +13,6 @@
       height: auto;
     }
   }
-
   .product_box {
     background: #1f1d2b;
     border-radius: 8px;
@@ -39,6 +39,36 @@
   .col {
     margin-bottom: calc(4 * var(--pad-pri));
   }
+  .product_item.add_item {
+    border: 2px dashed var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    .action_add {
+      cursor: pointer;
+      .plus {
+        @include fz-60;
+        text-align: center;
+        color: var(--primary-color);
+      }
+      .add_text {
+        color: var(--primary-color);
+        @include fz-20;
+      }
+      .plus,
+      .add_text {
+        transition: all 0.3s ease-in-out;
+      }
+      &:hover {
+        .plus,
+        .add_text {
+          color: white;
+        }
+      }
+    }
+  }
   .card-back {
     display: flex;
     flex-direction: column;
@@ -46,5 +76,14 @@
   }
   .btn_addcart {
     background-color: var(--primary-color);
+  }
+}
+.add_item_modal {
+  .modal_body {
+    .form_group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
   }
 }

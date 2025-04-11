@@ -25,16 +25,16 @@ const Header = () => {
               <img className="icon" src={Images.dashboard} alt="home" />
             </Link>
           </div>
-          <div className="header_icon header_message">
+          {/* <div className="header_icon header_message">
             <Link to="/">
               <img className="icon" src={Images.message} alt="message" />
             </Link>
-          </div>
-          <div className="header_icon header_noti">
+          </div> */}
+          {/* <div className="header_icon header_noti">
             <Link to="/">
               <img className="icon" src={Images.notification} alt="noti" />
             </Link>
-          </div>
+          </div> */}
           <div className="header_icon header_setting">
             <Link to="/setting">
               <img className="icon" src={Images.setting} alt="setting" />

@@ -3,9 +3,6 @@ import { format } from 'date-fns';
 import ProductList from '../../components/ProductList';
 import { useState, useEffect, useContext } from 'react';
 import '../components/styles/home.scss';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
 import { useCart } from '../../context/CartContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +11,7 @@ import Form from 'react-bootstrap/Form';
 import { DiscountContext } from '../../context/DiscountContext';
 import { OrderContext } from '../../context/OrderContext';
 import Modal from 'react-modal';
+import FoodTab from '../../components/FoodTab';
 Modal.setAppElement('#root');
 const Home = () => {
   const [method, setMethod] = useState('');
@@ -79,11 +77,6 @@ const Home = () => {
     console.log('Selected method:', id);
   };
   //
-  const [value, setValue] = useState('all');
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
   const handleSubmit = async () => {
     try {
       console.log('FormData:', formData);
@@ -128,36 +121,7 @@ const Home = () => {
               {/* Search ở đây */}
             </div>
             <div className="home_tabs sec-gap">
-              <Box>
-                <Tabs
-                  TabIndicatorProps={{
-                    style: { backgroundColor: '#EA7C69' }, // Đổi màu dòng kẻ ở đây
-                  }}
-                  value={value}
-                  onChange={handleChange}
-                  sx={{
-                    '& .MuiTab-root': { color: '#fff', fontSize: '1.4rem' }, // Màu chữ mặc định
-                    '& .Mui-selected': { color: '#EA7C69 !important' },
-                  }}
-                >
-                  <Tab value="all" label="All" />
-                  <Tab value="hot-dishes" label="Hot Dishes" />
-                  <Tab value="cold-dishes" label="Cold Dishes" />
-                  <Tab value="soup" label="Soup" />
-                  <Tab value="grill" label="Grill" />
-                  <Tab value="appetizer" label="Appetizer" />
-                  <Tab value="dessert" label="Dessert" />
-                </Tabs>
-                <div>
-                  <Box sx={{ marginTop: '2.4rem', color: '#fff' }}>
-                    <div className="home_prod">
-                      <div className="home_prod_list">
-                        <ProductList value={value} />
-                      </div>
-                    </div>
-                  </Box>
-                </div>
-              </Box>
+              <FoodTab />
             </div>
           </div>
           <div className="home_order">
@@ -325,7 +289,11 @@ const Home = () => {
                             <div key={index} className="col col-4">
                               <div
                                 onClick={() => handleMethod(item.id)}
-                                className="method_item"
+                                className={
+                                  method === item.id
+                                    ? 'method_item active'
+                                    : 'method_item'
+                                }
                                 tabIndex="0"
                                 id={item.id}
                               >
@@ -363,7 +331,7 @@ const Home = () => {
                             <Form.Control
                               name="cardNumber"
                               value={formData.cardNumber}
-                              type="text"
+                              type="number"
                               placeholder="2564 1421 0897 1244"
                               onChange={handleChangeForm}
                             ></Form.Control>
@@ -434,16 +402,24 @@ const Home = () => {
                           </div>
                         </Form.Group>
                       </Form>
-                      <div className="cta_group order_cta_group">
+                      <div
+                        className="cta_group order_cta_group"
+                        style={{
+                          display: 'grid',
+                          gridTemplateColumns: '1fr 1fr',
+                        }}
+                      >
                         <div
                           className="btnn --pri cta_btnn cancel_btnn"
                           onClick={handlePrevStep}
+                          style={{ width: '100%' }}
                         >
                           <p className="shining_text">Cancel</p>
                         </div>
                         <div
                           className="btnn --pri cta_btnn confirm_btnn"
                           onClick={handleOpenPopup}
+                          style={{ width: '100%' }}
                         >
                           <p className="shining_text">Confirm Order</p>
                         </div>
@@ -467,6 +443,7 @@ const Home = () => {
                 padding: '20px',
                 borderRadius: '8px',
                 display: 'flex',
+                gap: '2rem',
                 flexDirection: 'column',
                 color: 'white',
                 justifyContent: 'center',
@@ -477,7 +454,15 @@ const Home = () => {
             <div className="order_form_thankyou">
               <h1>CONFIRM FOR YOUR ORDER</h1>
             </div>
-            <div className="order_form_info" style={{ textAlign: 'center' }}>
+            <div
+              className="order_form_info"
+              style={{
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '2rem',
+              }}
+            >
               <h2>Here is your information</h2>
               <p>
                 <strong>Order price:</strong> {subtotal}

@@ -1,6 +1,9 @@
 import DefaultLayout from '../../layouts/Default Layout';
 import '../components/styles/setting.scss';
 import Images from '../../assets/image/Images';
+import FoodTab from '../../components/FoodTab';
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
 const Setting = () => {
   const settingOptions = [
     {
@@ -57,7 +60,17 @@ const Setting = () => {
             </div>
           </div>
           <div className="setting_wrapper_right">
-            <div className="inner"></div>
+            <div className="inner">
+              <h2 className="title">Products Management</h2>
+              <div
+                className="product_manage"
+                style={{ marginTop: 'var(--pad-pri)' }}
+              >
+                <div className="tab">
+                  <FoodTab />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </main>

@@ -70,11 +70,6 @@
       justify-content: space-between;
       flex-wrap: wrap;
     }
-    .home_prod {
-      &_list {
-        padding-top: calc(4 * var(--pad-pri));
-      }
-    }
   }
   .home_order_payment {
     .home_order_payment {
@@ -128,7 +123,7 @@
                   contrast(83%);
               }
               cursor: pointer;
-              &:focus {
+              &.active {
                 background-color: #252836;
                 border: 1px solid white;
                 p {

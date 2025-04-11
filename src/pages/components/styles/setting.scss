@@ -3,6 +3,7 @@
   .setting_wrapper {
     display: grid;
     grid-template-columns: 25% 1fr;
+    gap: 2rem;
 
     &_left {
       background: #1f1d2b;
@@ -41,8 +42,12 @@
         }
       }
     }
-    &right {
-      background: #000;
+    &_right {
+      background: #1f1d2b;
+      border-radius: 8px;
+      .inner {
+        padding: var(--pad-pri);
+      }
     }
   }
 }
