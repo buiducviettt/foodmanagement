@@ -18,6 +18,11 @@ const ProductList = ({ value }) => {
     description: '',
     stock: '',
   });
+  const handleEditChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -34,7 +39,6 @@ const ProductList = ({ value }) => {
     description: '',
     stock: '',
   });
-
   const [editId, setEditId] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const handleOpenEdit = (product) => {
@@ -232,7 +236,7 @@ const ProductList = ({ value }) => {
                     onClick={() => handleClick(product.id)}
                   >
                     <ProductItem
-                      editDish={() => handleOpenEdit(product.id)}
+                      editDish={() => handleOpenEdit(product)}
                       image={product.image}
                       name={product.title}
                       price={product.price}
@@ -295,9 +299,34 @@ const ProductList = ({ value }) => {
                   type="text"
                   name="title"
                   value={editData.title}
-                  onChange={(e) =>
-                    setEditData({ ...editData, title: e.target.value })
-                  }
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="form_group">
+                <label htmlFor="edit_price">Price:</label>
+                <input
+                  type="number"
+                  name="price"
+                  value={editData.price}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="form_group">
+                <label htmlFor="edit_image">Image:</label>
+                <input
+                  type="text"
+                  name=" image"
+                  value={editData.image}
+                  onChange={handleEditChange}
+                />
+              </div>
+              <div className="form_group">
+                <label htmlFor="edit_description">Description:</label>
+                <input
+                  type="text"
+                  name="description"
+                  value={editData.description}
+                  onChange={handleEditChange}
                 />
               </div>
             </form>
