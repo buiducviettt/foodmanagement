@@ -2,7 +2,15 @@ import Homepage from '../pages/Home';
 import Dashboard from '../pages/Dashboard';
 import Setting from '../pages/Settings';
 import Discount from '../pages/Discount';
+import AccountPage from '../pages/AccountPage';
 export const publicRoutes = [
+  {
+    path: '/account',
+    component: AccountPage,
+  },
+];
+
+export const privateRoutes = [
   {
     path: '/discount',
     component: Discount,
@@ -20,5 +28,3 @@ export const publicRoutes = [
     component: Dashboard,
   },
 ];
-
-export const privateRoutes = [];

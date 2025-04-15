@@ -1,6 +1,10 @@
 import Images from '../../assets/image/Images';
 import { Link } from 'react-router-dom';
 const Header = () => {
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    window.location.href = '/account';
+  };
   return (
     <header className="header">
       <div className="header_wrapper">
@@ -41,7 +45,7 @@ const Header = () => {
             </Link>
           </div>
           <div className="header_icon header_logout">
-            <Link to="/">
+            <Link to="/" onClick={handleLogout}>
               <img className="icon" src={Images.logout} alt="logout" />
             </Link>
           </div>

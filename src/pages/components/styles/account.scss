@@ -1,0 +1,18 @@
+.account_table {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .form_groups {
+    .form_group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--pad-pri);
+      margin: var(--pad-pri) 0;
+    }
+  }
+  .btnn.log_in {
+    margin: var(--pad-pri) 0;
+  }
+}
