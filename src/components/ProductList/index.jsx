@@ -19,12 +19,10 @@ const ProductList = ({ value }) => {
     stock: '',
   });
   const handleEditChange = (e) => {
-    e.preventDefault();
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setEditData({ ...editData, [name]: value });
   };
   const handleChange = (e) => {
-    e.preventDefault();
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -112,7 +110,25 @@ const ProductList = ({ value }) => {
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
-
+  // update san pham
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        `https://673c683296b8dcd5f3f9d8d8.mockapi.io/food/data/courses/${editId}`,
+        {
+          ...editData,
+          price: parseFloat(editData.price),
+          stock: parseInt(editData.stock),
+        },
+      );
+      console.log(response.data);
+      alert('Đã điều chỉnh');
+    } catch (error) {
+      console.log(error);
+    }
+    window.location.reload();
+  };
   return (
     <div className="product_list">
       <div className="row">
@@ -292,7 +308,7 @@ const ProductList = ({ value }) => {
             <h2>Edit Product</h2>
           </div>
           <div className="modal_body">
-            <form action="">
+            <form action="" onSubmit={handleUpdate}>
               <div className="form_group">
                 <label htmlFor="edit_title">Name:</label>
                 <input
@@ -315,7 +331,7 @@ const ProductList = ({ value }) => {
                 <label htmlFor="edit_image">Image:</label>
                 <input
                   type="text"
-                  name=" image"
+                  name="image"
                   value={editData.image}
                   onChange={handleEditChange}
                 />
@@ -329,6 +345,13 @@ const ProductList = ({ value }) => {
                   onChange={handleEditChange}
                 />
               </div>
+              <button
+                type="submit"
+                className="btnn --pri btnn_addcart"
+                style={{ width: '100%', marginTop: '1.6rem' }}
+              >
+                Edit
+              </button>
             </form>
           </div>
         </Modal>
