@@ -96,12 +96,15 @@ const ProductList = ({ value }) => {
   }, []);
   // xử lý add to cart
   const handleAddToCart = (e, product) => {
-    addToCart(product);
     e.stopPropagation();
-    console.log('Product added to cart:', product);
+
     if (product.stock <= 0) {
       alert('Out of stock');
+      return; // Không thực hiện gì thêm nếu hết hàng
     }
+
+    addToCart(product);
+    console.log('Product added to cart:', product);
   };
 
   // Xử lý khi click vào sản phẩm

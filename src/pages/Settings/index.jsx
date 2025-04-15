@@ -4,6 +4,7 @@ import Images from '../../assets/image/Images';
 import FoodTab from '../../components/FoodTab';
 import Modal from 'react-modal';
 import { useState } from 'react';
+
 Modal.setAppElement('#root');
 const Setting = () => {
   const settingOptions = [
@@ -63,19 +64,23 @@ const Setting = () => {
           <div className="setting_wrapper_right">
             <div className="inner">
               <h2 className="title">{selectedTab.title}</h2>
-              {selectedTab.id === 1 ? (
-                <>
-                  <div
-                    className="product_manage"
-                    style={{ marginTop: 'var(--pad-pri)' }}
-                  >
-                    <div className="tab">
-                      <FoodTab />
-                    </div>
+              {/* Tab 1 - Product Management */}
+              {selectedTab.id === 1 && (
+                <div
+                  className="product_manage"
+                  style={{ marginTop: 'var(--pad-pri)' }}
+                >
+                  <div className="tab">
+                    <FoodTab />
                   </div>
-                </>
-              ) : (
-                <p>Hiện chưa có thông tin về tính năng này </p>
+                </div>
+              )}
+
+              {/* Tab 2 - Appearance */}
+              {selectedTab.id === 2 && (
+                <div>
+                  <button>Toggle Theme</button>
+                </div>
               )}
             </div>
           </div>
