@@ -16,3 +16,20 @@
     margin: var(--pad-pri) 0;
   }
 }
+.signup_page {
+  .signup_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    .signup_form {
+      .form_group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--pad-pri);
+        margin: var(--pad-pri) 0;
+      }
+    }
+  }
+}

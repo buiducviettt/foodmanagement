@@ -62,7 +62,11 @@ const AccountPage = () => {
                 Log in
               </button>
               <span>
-                Don't have account, please <a href="">Sign up</a>
+                Don't have account, please{' '}
+                <a href="/signup" style={{ textDecoration: 'underline' }}>
+                  {' '}
+                  Sign up
+                </a>
               </span>
             </div>
           </div>
