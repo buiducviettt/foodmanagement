@@ -14,6 +14,7 @@ import order from './Food POS Dark - Tablet Device (Community)/Icon/Line/Order.s
 import arrowup from './Food POS Dark - Tablet Device (Community)/Icon/Line/Arrow - Up.svg';
 import arrowdown from './Food POS Dark - Tablet Device (Community)/Icon/Line/Arrow - Down.svg';
 import option from './Food POS Dark - Tablet Device (Community)/Icon/Line/Option.svg';
+import customer from './Food POS Dark - Tablet Device (Community)/Icon/Line/Customer.svg';
 import food1 from './food/img1.png';
 import food2 from './food/img2.png';
 import food3 from './food/img3.png';
@@ -21,6 +22,7 @@ import voucher from './voucher/voucher.png';
 import heart from './Food POS Dark - Tablet Device (Community)/Icon/Line/Appereance.svg';
 import restaurant from './Food POS Dark - Tablet Device (Community)/Icon/Line/Restaurant.svg';
 const Images = {
+  customer,
   voucher,
   restaurant,
   heart,
