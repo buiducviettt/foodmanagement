@@ -9,10 +9,14 @@ const AccountPage = () => {
   const { login } = useContext(AuthContext);
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const handleLogin = async (e) => {
     e.preventDefault();
     await login(username, password);
     navigate('/');
+  };
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
   };
   return (
     <div className="account_page">
@@ -36,10 +40,14 @@ const AccountPage = () => {
                 <li className="form_group">
                   <label htmlFor="">Password</label>
                   <input
-                    type="password"
+                    className="password_input"
+                    type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <span className="show_password" onClick={togglePassword}>
+                    {showPassword ? 'Hide' : 'Show'}
+                  </span>
                 </li>
               </ul>
               <button className="btnn --pri w-100 log_in" onClick={handleLogin}>

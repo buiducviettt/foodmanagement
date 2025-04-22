@@ -54,6 +54,7 @@ const Signup = () => {
             <div className="form_group">
               <label htmlFor="username">Username</label>
               <input
+                required
                 name="userName"
                 type="text"
                 value={formData.userName}
@@ -63,6 +64,7 @@ const Signup = () => {
             <div className="form_group">
               <label htmlFor="password">Password</label>
               <input
+                required
                 type="password"
                 value={formData.password}
                 onChange={handleChange}
@@ -72,6 +74,7 @@ const Signup = () => {
             <div className="form_group">
               <label htmlFor="confirm_pass">Confirm Password</label>
               <input
+                required
                 name="confirmPassword"
                 type="password"
                 value={formData.confirmPassword}

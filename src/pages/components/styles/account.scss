@@ -6,10 +6,18 @@
   align-items: center;
   .form_groups {
     .form_group {
+      position: relative;
       display: flex;
       flex-direction: column;
       gap: var(--pad-pri);
       margin: var(--pad-pri) 0;
+      .show_password {
+        position: absolute;
+        bottom: 0;
+        right: 10px;
+        cursor: pointer;
+        color: black;
+      }
     }
   }
   .btnn.log_in {
