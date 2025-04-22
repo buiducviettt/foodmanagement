@@ -3,8 +3,9 @@ import { AuthContext } from '../../context/AuthContent';
 import DefaultLayout from '../../layouts/Default Layout';
 import axios from 'axios';
 import Modal from 'react-modal';
+
 const AccountInfo = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, logout } = useContext(AuthContext);
   const [editUser, setEditUser] = useState({
     name: '',
     email: '',
@@ -12,6 +13,10 @@ const AccountInfo = () => {
   });
   const [openEditModal, setOpenEditModal] = useState(false);
   const [editId, setEditId] = useState(null);
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = '/login';
+  };
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditUser((prev) => ({
@@ -85,6 +90,9 @@ const AccountInfo = () => {
                 onClick={() => handleOpenEdit(user)}
               >
                 Chỉnh sửa
+              </button>
+              <button className="btnn --pri w-100 mt-5" onClick={handleLogout}>
+                Đăng xuất
               </button>
             </div>
           </div>
