@@ -7,10 +7,6 @@ import Signup from '../pages/AccountPage/Signup';
 import AccountInfo from '../pages/AccountInfo';
 export const publicRoutes = [
   {
-    path: '/account',
-    component: AccountInfo,
-  },
-  {
     path: '/signup',
     component: Signup,
   },
@@ -21,6 +17,10 @@ export const publicRoutes = [
 ];
 
 export const privateRoutes = [
+  {
+    path: '/account',
+    component: AccountInfo,
+  },
   {
     path: '/discount',
     component: Discount,
