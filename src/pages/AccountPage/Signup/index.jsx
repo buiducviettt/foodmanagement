@@ -2,7 +2,10 @@ import { useState } from 'react';
 import '../../components/styles/account.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../context/AuthContent';
+import { useContext } from 'react';
 const Signup = () => {
+  const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     userName: '',
@@ -32,6 +35,9 @@ const Signup = () => {
           password: formData.password,
         },
       );
+      const newUser = response.data;
+      localStorage.setItem('user', JSON.stringify(newUser));
+      setUser(newUser); // cập nhật context ngay lập tức
       console.log('Đăng ký thành công', response.data);
       alert('Đăng ký thành công');
       navigate('/account');

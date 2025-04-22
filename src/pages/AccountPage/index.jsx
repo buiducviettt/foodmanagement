@@ -1,35 +1,19 @@
 import { useState } from 'react';
 import '../components/styles/account.scss';
-import axios from 'axios';
+
+import { AuthContext } from '../../context/AuthContent';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 const AccountPage = () => {
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-  const handleLogin = async () => {
-    try {
-      const response = await axios.get(
-        `https://673c683296b8dcd5f3f9d8d8.mockapi.io/food/data/users`,
-      );
-
-      // Kiểm tra nếu có dữ liệu trả về
-      const user = response.data.find(
-        (user) => user.username === username && user.password === password,
-      );
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-        alert('Log in thành công');
-        console.log('Login thành công:', user);
-        navigate('/');
-      } else {
-        alert('Tài khoản không tồn tại');
-      }
-    } catch (error) {
-      console.error('Lỗi kết nối tới MockAPI:', error.message);
-      alert('Có lỗi khi kết nối tới MockAPI. Vui lòng thử lại sau.');
-    }
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await login(username, password);
+    navigate('/');
   };
-
   return (
     <div className="account_page">
       <div className="container">

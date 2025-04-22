@@ -4,13 +4,18 @@ import Setting from '../pages/Settings';
 import Discount from '../pages/Discount';
 import AccountPage from '../pages/AccountPage';
 import Signup from '../pages/AccountPage/Signup';
+import AccountInfo from '../pages/AccountInfo';
 export const publicRoutes = [
+  {
+    path: '/account',
+    component: AccountInfo,
+  },
   {
     path: '/signup',
     component: Signup,
   },
   {
-    path: '/account',
+    path: '/login',
     component: AccountPage,
   },
 ];

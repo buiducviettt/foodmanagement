@@ -1,9 +1,12 @@
 import Images from '../../assets/image/Images';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContent';
 const Header = () => {
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    window.location.href = '/account';
+  const { logout } = useContext(AuthContext);
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = '/login';
   };
   return (
     <header className="header">
@@ -41,7 +44,7 @@ const Header = () => {
             </Link>
           </div>
           <div className="header_icon header_info">
-            <Link to="/">
+            <Link to="/account">
               <img className="icon" src={Images.customer} alt="message" />
             </Link>
           </div>
