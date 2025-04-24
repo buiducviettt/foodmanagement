@@ -3,9 +3,15 @@ import { AuthContext } from '../../context/AuthContent';
 import DefaultLayout from '../../layouts/Default Layout';
 import axios from 'axios';
 import Modal from 'react-modal';
-
+import Tabs from '@mui/material/Tabs';
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import '../components/styles/account.scss';
+import { OrderContext } from '../../context/OrderContext';
 const AccountInfo = () => {
+  const [valueTab, setValueTab] = useState('info');
   const { user, setUser, logout } = useContext(AuthContext);
+  const { orders } = useContext(OrderContext);
   const [editUser, setEditUser] = useState({
     name: '',
     email: '',
@@ -66,36 +72,96 @@ const AccountInfo = () => {
     <div className="account_info_page">
       <DefaultLayout>
         <div className="account_info_page_wrapper">
-          <div className="account_table">
-            <div className="account_tab"></div>
-            <div className="account_lists">
-              <table>
-                <thead>
-                  <h1> Hello , {user ? user.name : ''}</h1>
-                  <p>Here is your information</p>
-                  <tr>
-                    <th>
-                      <p>Username : {user ? user.username : ''}</p>
-                    </th>
-                  </tr>
-                  <tr>
-                    <th>
-                      <p>Email: {user ? user.email : ''}</p>
-                    </th>
-                  </tr>
-                </thead>
-              </table>
-              <button
-                className="btnn --pri w-100 mt-5"
-                onClick={() => handleOpenEdit(user)}
+          <Box>
+            <div className="info_tabs_wrapper">
+              <Tabs
+                TabIndicatorProps={{
+                  style: { backgroundColor: '#EA7C69' }, // Đổi màu dòng kẻ ở đây
+                }}
+                value={valueTab}
+                onChange={(e, newValue) => setValueTab(newValue)}
+                sx={{
+                  '& .MuiTab-root': { color: '#fff', fontSize: '1.4rem' }, // Màu chữ mặc định
+                  '& .Mui-selected': { color: '#EA7C69 !important' },
+                }}
               >
-                Chỉnh sửa
-              </button>
-              <button className="btnn --pri w-100 mt-5" onClick={handleLogout}>
-                Đăng xuất
-              </button>
+                <Tab value="info" label="Information" />
+                <Tab value="orders" label="Orders" />
+                <Tab value="favorite-food" label="Favorite Food" />
+              </Tabs>
             </div>
-          </div>
+            <div>
+              <Box sx={{ marginTop: '2.4rem', color: '#fff' }}>
+                {valueTab === 'info' && (
+                  <div className="account_table">
+                    <div className="account_tab"></div>
+                    <div className="account_lists">
+                      <table>
+                        <thead>
+                          <h1> Hello , {user ? user.name : ''}</h1>
+                          <p>Here is your information</p>
+                          <tr>
+                            <th>
+                              <p>Username : {user ? user.username : ''}</p>
+                            </th>
+                          </tr>
+                          <tr>
+                            <th>
+                              <p>Email: {user ? user.email : ''}</p>
+                            </th>
+                          </tr>
+                        </thead>
+                      </table>
+                      <button
+                        className="btnn --pri w-100 mt-5"
+                        onClick={() => handleOpenEdit(user)}
+                      >
+                        Chỉnh sửa
+                      </button>
+                      <button
+                        className="btnn --pri w-100 mt-5"
+                        onClick={handleLogout}
+                      >
+                        Đăng xuất
+                      </button>
+                    </div>
+                  </div>
+                )}
+                {valueTab === 'orders' && (
+                  <div className="orders_table">
+                    <div className="orders_lists">
+                      <h1>Orders</h1>
+                      <p>Here is your orders</p>
+
+                      {orders.map((order) => (
+                        <div key={order.id} className="order_card">
+                          <h3>Đơn hàng #{order.id}</h3>
+                          <p>Khách: {order.customer || 'Không có tên'}</p>
+                          <p>Loại: {order.type}</p>
+                          <p>Tổng cộng: {order.total} VND</p>
+                          <div>
+                            <h4>Món ăn:</h4>
+                            <ul>
+                              {Array.isArray(order.items) ? ( // Kiểm tra nếu order.items là một mảng
+                                order.items.map((item, index) => (
+                                  <li key={index}>
+                                    {item.name} - SL: {item.quantity} - Giá:{' '}
+                                    {item.price} VND
+                                  </li>
+                                ))
+                              ) : (
+                                <li>Không có món ăn</li> // Nếu order.items không phải là mảng, hiển thị thông báo
+                              )}
+                            </ul>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </Box>
+            </div>
+          </Box>
         </div>
         <Modal
           isOpen={openEditModal}

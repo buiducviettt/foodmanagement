@@ -41,3 +41,21 @@
     }
   }
 }
+.account_info_page {
+  .info_tabs_wrapper {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+  }
+  .orders_table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .order_card {
+      border: 1px solid var(--primary-color);
+      margin-top: var(--pad-pri);
+      padding: var(--pad-pri);
+    }
+  }
+}

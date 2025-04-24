@@ -59,36 +59,24 @@ export const OrderProvider = ({ children }) => {
   const getTopDishes = (orders) => {
     console.log('Orders received in getTopDishes:', orders); // Kiểm tra orders
     const dishCounts = orders.reduce((acc, order) => {
-      order.items.forEach((item) => {
-        console.log('Item name:', item.title);
-        const name = item.title;
-        const quantity = item.quantity || 1;
-        if (name) {
-          acc[name] = (acc[name] || 0) + quantity; // Đếm số lần xuất hiện của món ăn
-        }
-      });
+      if (Array.isArray(order.items)) {
+        // Kiểm tra nếu order.items là một mảng
+        order.items.forEach((item) => {
+          console.log('Item name:', item.title);
+          const name = item.title;
+          const quantity = item.quantity || 1;
+          if (name) {
+            acc[name] = (acc[name] || 0) + quantity; // Đếm số lần xuất hiện của món ăn
+          }
+        });
+      } else {
+        console.warn('order.items is not an array:', order.items); // Cảnh báo nếu order.items không phải mảng
+      }
       return acc;
     }, {});
-
-    // Sắp xếp theo số lượng giảm dần và thêm thông tin cho từng món ăn
-    const ranking = Object.entries(dishCounts)
-      .sort((a, b) => b[1] - a[1]) // Sắp xếp theo số lượng
-      .map(([name, count], index) => {
-        // Lấy thông tin hình ảnh và tiêu đề từ món ăn trong orders
-        const item = orders
-          .flatMap((order) => order.items) // Duyệt qua tất cả các món ăn
-          .find((item) => item.title === name); // Tìm món ăn có tên trùng với name
-
-        return {
-          rank: index + 1,
-          name,
-          count,
-          image: item ? item.image : null, // Lấy hình ảnh từ món ăn
-        };
-      });
-
-    return ranking;
+    return dishCounts;
   };
+
   // tính toán ordertype
   const getOrderType = (orders) => {
     const allowedTypes = ['Dine In', 'To Go', 'Delivery'];
